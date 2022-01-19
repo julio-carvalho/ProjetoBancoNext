@@ -190,6 +190,7 @@ public class CartaoBO {
 		//acrescenta um mes
 		cal.add(Calendar.MONTH, 1);
 		
+		//armazena a data ajustada e depois retorna a data
 		Date data = cal.getTime();
 		return data;
 	}

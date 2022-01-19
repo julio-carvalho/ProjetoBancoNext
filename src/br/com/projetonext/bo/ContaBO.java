@@ -137,7 +137,7 @@ public class ContaBO {
 			
 			saldoDestino += valor;
 			contaDestino.setSaldo(saldoDestino);
-			System.out.println("\nTransferência realizado com sucesso!\nSaldo atual: R$" + conta.getSaldo());
+			System.out.println("\nTransferência realizada com sucesso!\nSaldo atual: R$" + conta.getSaldo());
 			
 			//valida e atualiza o tipo do cliente
 			TipoCliente aux = verificaTipo(conta.getSaldo());
@@ -166,13 +166,10 @@ public class ContaBO {
 	//Verifica se o tipo da Conta é Comum, Super ou Premium
 	public TipoCliente verificaTipo(double valor) {
 		if(valor < 5000)
-			//conta.setTipo(TipoCliente.COMUM);
 			return TipoCliente.COMUM;
 		else if(valor >= 5000 && valor < 15000)
-			//conta.setTipo(TipoCliente.SUPER);
 			return TipoCliente.SUPER;
 		else
-			//conta.setTipo(TipoCliente.PREMIUM);
 			return TipoCliente.PREMIUM;
 	}
 	

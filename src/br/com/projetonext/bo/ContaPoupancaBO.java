@@ -46,25 +46,47 @@ public class ContaPoupancaBO {
 		BancoDeDados.insereConta(cp.getNumero(), cp);
 	}
 	
-	//transferir para conta corrente
-	public void transferir(ContaPoupanca cp, Conta contaDestino, double valor) {
+	//transferência
+	public void transferir(ContaPoupanca cp, Conta contaDestino, double valor, int opc) {
 		double saldoAtual = cp.getSaldo();
 		double saldoDestino = contaDestino.getSaldo();
 		
-		if(saldoAtual >= valor) {
-			saldoAtual -= valor;
-			cp.setSaldo(saldoAtual);
-			
-			saldoDestino += valor;
-			contaDestino.setSaldo(saldoDestino);
-			System.out.println("Transferência realizado com sucesso!\nSaldo atual: R$" + cp.getSaldo());
-			
-			BancoDeDados.insereConta(cp.getNumero(), cp);
+		//1 - Transferir para outro tipo de conta
+		//2 - Transferir para conta corrente
+		if(opc == 1) {
+			if(saldoAtual >= valor) {
+				saldoAtual -= valor;
+				cp.setSaldo(saldoAtual);
+				
+				saldoDestino += valor;
+				contaDestino.setSaldo(saldoDestino);
+				System.out.println("Transferência realizada com sucesso!\nSaldo atual: R$" + cp.getSaldo());
+				
+				BancoDeDados.insereConta(cp.getNumero(), cp);
+			} else {
+				System.out.println("\nSaldo insuficiente!\nSaldo atual: R$" + cp.getSaldo());
+			}
 		} else {
-			System.out.println("\nSaldo insuficiente!\nSaldo atual: R$" + cp.getSaldo());
+			if(saldoAtual >= valor) {
+				saldoAtual -= valor;
+				//aplica taxa de transferência
+				saldoAtual -= 5.60;
+				cp.setSaldo(saldoAtual);
+				
+				saldoDestino += valor;
+				contaDestino.setSaldo(saldoDestino);
+				System.out.println("Transferência para Conta Corrente realizada com sucesso!");
+				System.out.println("Saldo da Conta Poupança: R$" + cp.getSaldo());
+				System.out.println("Saldo da Conta Corrente: R$" + contaDestino.getSaldo());
+				
+				BancoDeDados.insereConta(cp.getNumero(), cp);
+			} else {
+				System.out.println("\nSaldo insuficiente!\nSaldo atual: R$" + cp.getSaldo());
+			}
 		}
 	}
 	
+	//aplicar rendimento
 	public void aplicarRendimento(ContaPoupanca cp) {
 		double saldo = cp.getSaldo() * (1+(cp.getTaxaRendimento()/100));
 		cp.setSaldo(saldo);

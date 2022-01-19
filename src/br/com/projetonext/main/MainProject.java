@@ -565,7 +565,7 @@ public class MainProject {
 						valor = scan.nextDouble();
 					}
 										
-					cpb.transferir(contaPoup, conta, valor);
+					cpb.transferir(contaPoup, conta, valor, 2);
 				break;
 				case 5:
 					System.out.println("\nTransferir para outro tipo de conta");
@@ -584,8 +584,7 @@ public class MainProject {
 							System.out.println("Valor inválido, digite novamente o valor do depósito: ");
 							valor = scan.nextDouble();
 						}
-						
-						cpb.transferir(contaPoup, contaDestino, valor);
+						cpb.transferir(contaPoup, contaDestino, valor, 1);
 					} else {
 						continue;
 					}
