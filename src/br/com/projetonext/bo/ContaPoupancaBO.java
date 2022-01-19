@@ -86,6 +86,22 @@ public class ContaPoupancaBO {
 		}
 	}
 	
+	public void pixPoupanca(ContaPoupanca cp, Conta contaDestino, double valor) {
+		double saldoAtual = cp.getSaldo();
+		double saldoDestino = contaDestino.getSaldo();
+		
+		if(saldoAtual >= valor) {
+			saldoAtual -= valor;
+			cp.setSaldo(saldoAtual);
+			
+			saldoDestino += valor;
+			contaDestino.setSaldo(saldoDestino);
+			System.out.println("PIX realizado com sucesso!\nSaldo atual: R$" + cp.getSaldo());
+		} else {
+			System.out.println("\nSaldo insuficiente!\nSaldo atual: R$" + cp.getSaldo());
+		}
+	}
+	
 	//aplicar rendimento
 	public void aplicarRendimento(ContaPoupanca cp) {
 		double saldo = cp.getSaldo() * (1+(cp.getTaxaRendimento()/100));

@@ -193,7 +193,7 @@ public class MainProject {
 					
 					//verifica o valor digitado não é um número negativo
 					while(valor < 0) {
-						System.out.println("Valor inválido, digite novamente o valor da transferência: ");
+						System.out.println("Valor inválido, digite novamente o valor do saque: ");
 						valor = scan.nextDouble();
 					}
 					
@@ -297,15 +297,14 @@ public class MainProject {
 						}
 						pixBO.cadastrarPix(conta, opcChave, chave);
 					} else {
-						System.out.println("Seu pix já está ativado.");
+						System.out.println("O seu pix já está ativado.");
 					}
 				break;
 				case 9:
-					System.out.println("Fazer PIX");
+					System.out.println("\nFazer PIX");
 					
 					//valida se o pix está ativado
 					if(conta.getPix().isAtivado()) {
-						int opcPix = 0;
 						valida = false;
 						
 						System.out.println("Digite a chave do pix: ");
@@ -517,6 +516,7 @@ public class MainProject {
 		Scanner scan = new Scanner(System.in);
 		Scanner scanString = new Scanner(System.in);
 		ContaPoupancaBO cpb = new ContaPoupancaBO();
+		PixBO pixBO = new PixBO();
 		
 		int opcMenu = 0;
 		double valor = 0;
@@ -589,7 +589,7 @@ public class MainProject {
 						continue;
 					}
 					
-					break;
+				break;
 				case 6:
 					System.out.println("\nAplicar rendimento");
 					cpb.aplicarRendimento(contaPoup);

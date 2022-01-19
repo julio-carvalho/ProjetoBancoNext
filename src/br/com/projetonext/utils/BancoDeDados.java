@@ -72,6 +72,7 @@ public class BancoDeDados {
 		
 		for(Map.Entry<String, Conta> mapaConta: BancoDeDados.BANCO_DE_DADOS.entrySet()) {
 			Conta conta = mapaConta.getValue();
+			System.out.println(conta.getPix().getChave());
 			if(conta.getPix().getChave().equals(chave)) {
 				var = true;
 			} 
