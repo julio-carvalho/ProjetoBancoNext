@@ -44,10 +44,11 @@ public class Menu {
 		System.out.println("| 16 - Exibir Fatura                                                   |");
 		System.out.println("| 17 - Pagar Fatura                                                    |");
 		System.out.println("| 18 - Obter apólice de seguro                                         |");
-		System.out.println("| 19 - Remover apólice de seguro                                       |");
+		System.out.println("| 19 - Exibir regras do seguro                                         |");
+		System.out.println("| 20 - Remover apólice de seguro                                       |");
 		System.out.println("+----------------------------------------------------------------------+");
 		System.out.println("| *    DESLOGAR                                                        |");
-		System.out.println("| 20 - Sair                                                            |");
+		System.out.println("| 21 - Sair                                                            |");
 		System.out.println("+----------------------------------------------------------------------+");
 		System.out.println("| Escolha uma opção:                                                   |");
 		System.out.println("+----------------------------------------------------------------------+");
@@ -116,6 +117,51 @@ public class Menu {
 		System.out.println("| 4  -  SAIR                                                           |");
 		System.out.println("+----------------------------------------------------------------------+");
 		System.out.println("| *  Escolha uma opção de seguro:                                      |");
+		System.out.println("+----------------------------------------------------------------------+");
+	}
+	public void apoliceMorte() {
+		System.out.println("\n+----------------------------------------------------------------------+");
+		System.out.println("|                            SEGURO DE MORTE                           |");
+		System.out.println("+----------------------------------------------------------------------+");
+		System.out.println("| i.    Indenização por despesas médico-hospitalares, ou por perda     |");
+		System.out.println("|       a parcial ou total do funcionamento dos membros ou órgãos.     |");
+		System.out.println("|                                                                      |");
+		System.out.println("| ii.   Reembolso de custos em diagnóstico de doenças graves, como     |");
+		System.out.println("|       como infarto, acidente vascular cerebral e câncer              |");
+		System.out.println("|                                                                      |");
+		System.out.println("| iii.  Assistência funeral, para você e a sua família.                |");
+		System.out.println("|                                                                      |");
+		System.out.println("| iv.   O valor do seguro individual é de R$36,00 ao ano.              |");
+		System.out.println("+----------------------------------------------------------------------+");
+	}
+	public void apoliceInvalidez() {
+		System.out.println("\n+----------------------------------------------------------------------+");
+		System.out.println("|                               INVALIDEZ                              |");
+		System.out.println("+----------------------------------------------------------------------+");
+		System.out.println("| i.    Invalidez parcial: ocorre quando há uma perda parcial das      |");
+		System.out.println("|       funções. Por exemplo, uma pessoa que sofre um acidente e perda |");
+		System.out.println("|       da visão em um só dos olhos.                                   |");
+		System.out.println("|                                                                      |");
+		System.out.println("| ii.   Invalidez total: ocorre quando há uma perda total das funções. |");
+		System.out.println("|       Intuitivamente, um bom exemplo seria o caso onde a pessoa      |");
+		System.out.println("|       sofre um acidente e perde a visão em ambos os olhos.           |");
+		System.out.println("|                                                                      |");
+		System.out.println("| iii.  O valor do seguro individual é de R$26,00 ao ano.              |");
+		System.out.println("+----------------------------------------------------------------------+");
+	}
+	public void apoliceDesemprego() {
+		System.out.println("\n+----------------------------------------------------------------------+");
+		System.out.println("|                              DESEMPREGO                              |");
+		System.out.println("+----------------------------------------------------------------------+");
+		System.out.println("| i.    Necessário trabalhar com registro CLT, com o tempo mínimo de   |");
+		System.out.println("|       estabilidade de 12 meses.                                      |");
+		System.out.println("|                                                                      |");
+		System.out.println("| ii.   Válido apenas para desligamento involuntários e sem justa causa|");
+		System.out.println("|                                                                      |");
+		System.out.println("| iii.  Não é valido em caso de demissão em massa (10% ou mais de      |");
+		System.out.println("|       demissões simultâneas) ou falência/encerramento das atividades.|");
+		System.out.println("|                                                                      |");
+		System.out.println("| iv.   O valor do seguro individual é de R$16,00 ao ano.              |");
 		System.out.println("+----------------------------------------------------------------------+");
 	}
 }

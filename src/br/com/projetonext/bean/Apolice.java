@@ -8,6 +8,7 @@ public class Apolice {
 	private String descricaoCondicoes;
 	private Date dataAssinatura;
 	private Date dataCarencia;
+	private Date dataAnual;
 	private boolean ativo;
 	private Seguro seguro;
 	
@@ -41,6 +42,12 @@ public class Apolice {
 	}
 	public void setDataCarencia(Date dataCarencia) {
 		this.dataCarencia = dataCarencia;
+	}
+	public Date getDataAnual() {
+		return dataAnual;
+	}
+	public void setDataAnual(Date dataAnual) {
+		this.dataAnual = dataAnual;
 	}
 	public boolean isAtivo() {
 		return ativo;

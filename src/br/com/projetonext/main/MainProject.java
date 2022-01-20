@@ -409,11 +409,11 @@ public class MainProject {
 						double limite = 0;
 						
 						if(tp == TipoCliente.COMUM)
-							limite = 1000;
+							limite = 1500;
 						else if(tp == TipoCliente.PREMIUM)
-							limite = 5000;
+							limite = 6000;
 						else
-							limite = 12000;
+							limite = 14000;
 						
 						System.out.println("\nO limite do seu cartão é de: R$" + limite);
 						System.out.println("Deseja prosseguir na ativação do cartão de crédito?\n1 - Sim\n2 - Não");
@@ -511,8 +511,10 @@ public class MainProject {
 
 				break;
 				case 18:
-					System.out.println("\nObter apólice do seguro de vida");
+					System.out.println("\nObter apólice do seguro de vida.");
+					//valida se o cartão de crédito está ativo
 					if(conta.getCartaoCredito().isAtivo()) {
+						//valida se o cartão já possui uma apólice
 						if(!conta.getCartaoCredito().getApolice().isAtivo()) {
 							menu.descApolice();
 							int opcApolice = scan.nextInt();
@@ -522,29 +524,32 @@ public class MainProject {
 							//2 - INVALIDEZ
 							//3 - DESEMPREGO
 							if(opcApolice == 1) {
+								//confirmação da assinatura
 								System.out.println("\nConfirmar assinatura da apólice de seguro referente a morte?\n1 - Sim\n2 - Não");
 								opcAssinatura = scan.nextInt();
 								
 								if(opcAssinatura == 1)
-									apoliceBO.assinatura(conta, 36, "Morte", "Descrição Morte");
+									apoliceBO.assinatura(conta, 36, "Morte", "Regras Morte");
 								else 
 									continue;
 								
 							} else if(opcApolice == 2) {
+								//confirmação da assinatura
 								System.out.println("\nConfirmar assinatura da apólice de seguro referente a invalidez?\n1 - Sim\n2 - Não");
 								opcAssinatura = scan.nextInt();
 								
 								if(opcAssinatura == 1)
-									apoliceBO.assinatura(conta, 26, "Invalidez", "Descrição Invalidez");
+									apoliceBO.assinatura(conta, 26, "Invalidez", "Regras Invalidez");
 								else 
 									continue;
 								
 							} else if(opcApolice == 3) {
+								//confirmação da assinatura
 								System.out.println("\nConfirmar assinatura da apólice de seguro referente a desemprego?\n1 - Sim\n2 - Não");
 								opcAssinatura = scan.nextInt();
 								
 								if(opcAssinatura == 1)
-									apoliceBO.assinatura(conta, 16, "Desemprego", "Descrição Desemprego");
+									apoliceBO.assinatura(conta, 16, "Desemprego", "Regras Desemprego");
 								else 
 									continue;
 								
@@ -561,16 +566,53 @@ public class MainProject {
 
 				break;
 				case 19:
-					System.out.println("\nRemover apólice de seguro de vida");
+					System.out.println("\nRegras e detalhes do seguro.");
+					//valida se o cartão de crédito está ativo
 					if(conta.getCartaoCredito().isAtivo()) {
+						//valida se o cartão já possui uma apólice
 						if(conta.getCartaoCredito().getApolice().isAtivo()) {
-						
+			
+							//valida se a apólice do cartão é referente ao seguro de morte, invalidez ou desemprego				
+							if(conta.getCartaoCredito().getApolice().getSeguro().getNome().equals("Morte")) {
+								menu.apoliceMorte();
+								apoliceBO.dadosApolice(conta);
+							} else if(conta.getCartaoCredito().getApolice().getSeguro().getNome().equals("Invalidez")) {
+								menu.apoliceInvalidez();
+								apoliceBO.dadosApolice(conta);
+							} else if(conta.getCartaoCredito().getApolice().getSeguro().getNome().equals("Desemprego")) {
+								menu.apoliceDesemprego();
+								apoliceBO.dadosApolice(conta);
+							}
+							
 						} else {
-							System.out.println("\nVocê não possui seguro em seu cartão de crédito");
+							System.out.println("\nVocê não possui seguro em seu cartão de crédito.");
 						}
+					} else {
+						System.out.println("\nO cartão de crédito está desativado!");
 					}
 				break;
 				case 20:
+					System.out.println("\nRemover apólice de seguro de vida.");
+					if(conta.getCartaoCredito().isAtivo()) {
+						if(conta.getCartaoCredito().getApolice().isAtivo()) {
+							System.out.println("\nVocê possui o seguro de " + conta.getCartaoCredito().getApolice().getSeguro().getNome() + ".");
+							System.out.println("Você deseja remover esse seguro?\n1 - Sim\n2 - Não");
+							int opcAssinatura = scan.nextInt();
+							
+							if(opcAssinatura == 1)
+								apoliceBO.removeSeguro(conta);
+							else
+								continue;
+							
+						} else {
+							System.out.println("\nVocê não possui seguro em seu cartão de crédito.");
+						}
+					} else {
+						System.out.println("\nO cartão de crédito está desativado!");
+					}
+
+				break;
+				case 21:
 					//deixa continuar como false e desloga da conta
 					System.out.println("Deslogando!");
 					continuar = false;
