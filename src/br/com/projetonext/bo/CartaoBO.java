@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import br.com.projetonext.bean.Apolice;
 import br.com.projetonext.bean.CartaoCredito;
 import br.com.projetonext.bean.CartaoDebito;
 import br.com.projetonext.bean.Compra;
@@ -55,6 +56,8 @@ public class CartaoBO {
 	
 	public void cadastraCartaoCredito(Conta conta, int bandeira, double limite, String senha, int dia) {
 		CartaoCredito cartaoCredito = new CartaoCredito();
+		Apolice apolice = new Apolice();
+		
 		conta.setCartaoCredito(cartaoCredito);
 		cartaoCredito.setAtivo(true);
 		cartaoCredito.setId(UUID.randomUUID().toString());
@@ -63,6 +66,8 @@ public class CartaoBO {
 		cartaoCredito.setSenha(senha);
 		cartaoCredito.setDataVencimento(this.ajustaData(dia));
 		cartaoCredito.setFatura(0);
+		cartaoCredito.setApolice(apolice);
+		cartaoCredito.getApolice().setAtivo(false);
 		
 		//defini tipo bandeira
 		if(bandeira == 1)
@@ -106,7 +111,7 @@ public class CartaoBO {
 	
 	//exibi a fatura e os dados do cartão de crédito
 	public void exibirFatura(Conta conta) {
-		List<Compra> lCompra = conta.getCartaoCredito().getCompras();
+		List<Compra> listaCompra = conta.getCartaoCredito().getCompras();
 		
 		
 		System.out.println("\n+----------------------------------------------------------------------+");
@@ -126,7 +131,7 @@ public class CartaoBO {
 		
 		SimpleDateFormat sdfComHora = new SimpleDateFormat("dd/MM/yyy HH:mm:ss");
 		
-		for(Compra compra : lCompra) {
+		for(Compra compra : listaCompra) {
 			String dataDaCompra = sdfComHora.format(compra.getData());
 			double valorDaCompra = compra.getValor();
 			

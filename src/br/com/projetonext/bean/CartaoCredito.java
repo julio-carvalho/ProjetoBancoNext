@@ -10,6 +10,7 @@ public class CartaoCredito extends Cartao {
 	private Date dataVencimento;
 	private double fatura;
 	private Conta conta;
+	private Apolice apolice;
 	
 	public CartaoCredito() {
 		this.compras = new ArrayList<Compra>();
@@ -45,4 +46,11 @@ public class CartaoCredito extends Cartao {
 	public void setConta(Conta conta) {
 		this.conta = conta;
 	}
+	public Apolice getApolice() {
+		return apolice;
+	}
+	public void setApolice(Apolice apolice) {
+		this.apolice = apolice;
+	}
+	
 }

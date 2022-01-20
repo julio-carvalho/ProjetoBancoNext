@@ -13,6 +13,7 @@ import br.com.projetonext.bean.Conta;
 import br.com.projetonext.bean.ContaPoupanca;
 import br.com.projetonext.bean.Endereco;
 import br.com.projetonext.bean.TipoCliente;
+import br.com.projetonext.bo.ApoliceBO;
 import br.com.projetonext.bo.CartaoBO;
 import br.com.projetonext.bo.ClienteBO;
 import br.com.projetonext.bo.ContaBO;
@@ -45,13 +46,18 @@ public class MainProject {
 			
 			switch(opc) {
 				case 1:
+					System.out.println("\n+--------------------------------+");
+					System.out.println("|          CRIAR CONTA           |");
+					System.out.println("+--------------------------------+");
+					scan.nextLine();
+					
 					ClienteBO clienteBO = new ClienteBO();
 					EnderecoBO enderecoBO = new EnderecoBO();
 					ContaBO contaBO = new ContaBO();
 					
-					System.out.println("\nCriar Conta");
-					scan.nextLine();
-					System.out.println("Digite seu nome: ");
+
+					
+					System.out.println("\nDigite seu nome: ");
 					nome = scan.nextLine();
 					
 					System.out.println("Digite seu CPF: ");
@@ -134,10 +140,13 @@ public class MainProject {
 					contaBO.cadastrarConta(cliente, senha);
 				break;
 				case 2:
+					System.out.println("\n+--------------------------------+");
+					System.out.println("|             LOGIN              |");
+					System.out.println("+--------------------------------+");
 					ContaBO contaBOlogin = new ContaBO();
 					boolean ver = false;
-					System.out.println("\nLogin");
-					System.out.println("Digite seu CPF: ");
+					
+					System.out.println("\nDigite seu CPF: ");
 					String auxCpf = scan.next();
 					
 					System.out.println("Digite sua senha: ");
@@ -172,6 +181,7 @@ public class MainProject {
 		ContaPoupancaBO cpBO = new ContaPoupancaBO();
 		PixBO pixBO = new PixBO();
 		CartaoBO cartaoBO = new CartaoBO();
+		ApoliceBO apoliceBO = new ApoliceBO();
 		
 		//armazena a conta logada
 		Conta conta = BancoDeDados.buscaContaPorCPF(cpf);
@@ -501,6 +511,66 @@ public class MainProject {
 
 				break;
 				case 18:
+					System.out.println("\nObter apólice do seguro de vida");
+					if(conta.getCartaoCredito().isAtivo()) {
+						if(!conta.getCartaoCredito().getApolice().isAtivo()) {
+							menu.descApolice();
+							int opcApolice = scan.nextInt();
+							
+							int opcAssinatura = 0;
+							//1 - MORTE
+							//2 - INVALIDEZ
+							//3 - DESEMPREGO
+							if(opcApolice == 1) {
+								System.out.println("\nConfirmar assinatura da apólice de seguro referente a morte?\n1 - Sim\n2 - Não");
+								opcAssinatura = scan.nextInt();
+								
+								if(opcAssinatura == 1)
+									apoliceBO.assinatura(conta, 36, "Morte", "Descrição Morte");
+								else 
+									continue;
+								
+							} else if(opcApolice == 2) {
+								System.out.println("\nConfirmar assinatura da apólice de seguro referente a invalidez?\n1 - Sim\n2 - Não");
+								opcAssinatura = scan.nextInt();
+								
+								if(opcAssinatura == 1)
+									apoliceBO.assinatura(conta, 26, "Invalidez", "Descrição Invalidez");
+								else 
+									continue;
+								
+							} else if(opcApolice == 3) {
+								System.out.println("\nConfirmar assinatura da apólice de seguro referente a desemprego?\n1 - Sim\n2 - Não");
+								opcAssinatura = scan.nextInt();
+								
+								if(opcAssinatura == 1)
+									apoliceBO.assinatura(conta, 16, "Desemprego", "Descrição Desemprego");
+								else 
+									continue;
+								
+							} else {
+								System.out.println("\nSaindo");
+								continue;
+							}
+						} else {
+							System.out.println("\nVocê já possui um seguro.");
+						}
+					} else {
+						System.out.println("\nO cartão de crédito está desativado!");
+					}
+
+				break;
+				case 19:
+					System.out.println("\nRemover apólice de seguro de vida");
+					if(conta.getCartaoCredito().isAtivo()) {
+						if(conta.getCartaoCredito().getApolice().isAtivo()) {
+						
+						} else {
+							System.out.println("\nVocê não possui seguro em seu cartão de crédito");
+						}
+					}
+				break;
+				case 20:
 					//deixa continuar como false e desloga da conta
 					System.out.println("Deslogando!");
 					continuar = false;

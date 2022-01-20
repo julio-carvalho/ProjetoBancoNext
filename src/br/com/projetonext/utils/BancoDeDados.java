@@ -44,8 +44,8 @@ public class BancoDeDados {
 	public static boolean validaContaCPF(String cpf) {
 		boolean var = false;
 		
-		for(Map.Entry<String, Conta> mapaConta: BancoDeDados.BANCO_DE_DADOS.entrySet()) {
-			Conta conta = mapaConta.getValue();
+		for(Map.Entry<String, Conta> contaMap: BancoDeDados.BANCO_DE_DADOS.entrySet()) {
+			Conta conta = contaMap.getValue();
 			if(conta.getCliente().getCpf().equals(cpf)) {
 				var = true;
 			} 
