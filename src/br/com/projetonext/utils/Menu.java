@@ -63,7 +63,10 @@ public class Menu {
 		System.out.println("| 4 - Transferir para Conta Corrente                                   |");
 		System.out.println("| 5 - Transferir para outro tipo de conta                              |");
 		System.out.println("| 6 - Aplicar rendimento                                               |");
+		System.out.println("+----------------------------------------------------------------------+");
 		System.out.println("| 7 - Sair                                                             |");
+		System.out.println("+----------------------------------------------------------------------+");
+		System.out.println("| Escolha uma opção:                                                   |");
 		System.out.println("+----------------------------------------------------------------------+");
 	}
 	public void menuDiaVencimento() {

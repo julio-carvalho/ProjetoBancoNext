@@ -44,7 +44,7 @@ public class CartaoBO {
 				saldoAtual -= valor;
 				conta.setSaldo(saldoAtual);
 				
-				BancoDeDados.insereConta(conta.getNumero(), conta);
+				BancoDeDados.adicionaConta(conta.getNumero(), conta);
 				System.out.println("\nCompra realizada com sucesso!\nSaldo atual: R$" + conta.getSaldo());
 			} else {
 				System.out.println("\nSaldo insuficiente!\nSaldo atual: R$" + conta.getSaldo());
@@ -95,7 +95,7 @@ public class CartaoBO {
 			fatura += valor;
 			conta.getCartaoCredito().setFatura(fatura);
 							
-			BancoDeDados.insereConta(conta.getNumero(), conta);
+			BancoDeDados.adicionaConta(conta.getNumero(), conta);
 			
 			System.out.println("\nCompra realizada com sucesso!\nFatura atual: R$" + conta.getCartaoCredito().getFatura());
 		} else {
@@ -152,7 +152,7 @@ public class CartaoBO {
 			conta.setSaldo(saldoAtual);
 			conta.getCartaoCredito().setFatura(0);
 			System.out.println("\nFatura paga com sucesso.\nSaldo atual: R$" + conta.getSaldo());
-			BancoDeDados.insereConta(conta.getNumero(), conta);
+			BancoDeDados.adicionaConta(conta.getNumero(), conta);
 		} else {
 			System.out.println("\nSaldo insuficiente.\nSaldo atual: R$" + conta.getSaldo());
 		}

@@ -45,7 +45,7 @@ public class ContaBO {
 		cc.setData(this.getAdiciona1Mes());
 		
 		cc.getContaCorrente().setTaxaManutencao(0.45);
-		BancoDeDados.insereConta(cc.getNumero(), cc);
+		BancoDeDados.adicionaConta(cc.getNumero(), cc);
 		System.out.println("\nConta cadastrada com sucesso!\nO número da sua conta é: " + cc.getNumero());
 		
 		return cc;
@@ -62,7 +62,7 @@ public class ContaBO {
 		cp.setSaldo(0);
 		cp.setTaxaRendimento(0.003);
 		
-		BancoDeDados.insereConta(cp.getNumero(), cp);
+		BancoDeDados.adicionaConta(cp.getNumero(), cp);
 		System.out.println("\nConta Poupança cadastrada com sucesso!\nO número da sua conta é: " + cp.getNumero());
 		return cp;
 	}
@@ -107,7 +107,7 @@ public class ContaBO {
 		TipoCliente aux = verificaTipo(conta.getSaldo());
 		conta.getCliente().setTipoCliente(aux);
 		
-		BancoDeDados.insereConta(conta.getNumero(), conta);
+		BancoDeDados.adicionaConta(conta.getNumero(), conta);
 	}
 	
 	public void sacar(Conta conta, double valor) {
@@ -121,7 +121,7 @@ public class ContaBO {
 			TipoCliente aux = verificaTipo(conta.getSaldo());
 			conta.getCliente().setTipoCliente(aux);
 			
-			BancoDeDados.insereConta(conta.getNumero(), conta);
+			BancoDeDados.adicionaConta(conta.getNumero(), conta);
 		} else {
 			System.out.println("\nSaldo insuficiente!\nSaldo atual: R$" + conta.getSaldo());
 		}
@@ -143,8 +143,8 @@ public class ContaBO {
 			TipoCliente aux = verificaTipo(conta.getSaldo());
 			conta.getCliente().setTipoCliente(aux);
 			
-			BancoDeDados.insereConta(conta.getNumero(), conta);
-			BancoDeDados.insereConta(contaDestino.getNumero(), contaDestino);
+			BancoDeDados.adicionaConta(conta.getNumero(), conta);
+			BancoDeDados.adicionaConta(contaDestino.getNumero(), contaDestino);
 		} else {
 			System.out.println("\nSaldo insuficiente!\nSaldo atual: R$" + conta.getSaldo());
 		}
@@ -159,7 +159,7 @@ public class ContaBO {
 		TipoCliente aux = verificaTipo(conta.getSaldo());
 		conta.getCliente().setTipoCliente(aux);
 		
-		BancoDeDados.insereConta(conta.getNumero(), conta);
+		BancoDeDados.adicionaConta(conta.getNumero(), conta);
 	}
 	
 	

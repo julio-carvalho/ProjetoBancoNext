@@ -2,6 +2,7 @@ package br.com.projetonext.bo;
 
 import br.com.projetonext.bean.Conta;
 import br.com.projetonext.bean.ContaPoupanca;
+import br.com.projetonext.bean.TipoCliente;
 import br.com.projetonext.utils.BancoDeDados;
 
 public class ContaPoupancaBO {
@@ -10,7 +11,9 @@ public class ContaPoupancaBO {
 		String nome = cp.getCliente().getNome();
 		String cpf = cp.getCliente().getCpf();
 		double valor = cp.getSaldo();
-		//TipoCliente tp = cp.getCliente().getTipoCliente();
+		
+		
+		TipoCliente tipoCP = this.verificaTipo(cp.getSaldo());
 		
 		System.out.println("\n+----------------------------------------------------------------------+");
 		System.out.println("|                            CONTA POUPANÇA                            |");
@@ -18,7 +21,7 @@ public class ContaPoupancaBO {
 		System.out.println(" * Nome: " + nome);
 		System.out.println(" * CPF: " + cpf);
 		System.out.println(" * Saldo R$: " + valor);
-		//System.out.println("Tipo: " + tp);
+		System.out.println(" * Tipo: " + tipoCP);
 		System.out.println("+----------------------------------------------------------------------+");
 	}
 		
@@ -29,7 +32,7 @@ public class ContaPoupancaBO {
 			saldo -= valor;
 			cp.setSaldo(saldo);
 			System.out.println("\nSaque realizado com sucesso!\nSaldo atual: " + cp.getSaldo());
-			BancoDeDados.insereConta(cp.getNumero(), cp);
+			BancoDeDados.adicionaConta(cp.getNumero(), cp);
 		} else {
 			System.out.println("\nSaldo insuficiente!\nSaldo atual: " + cp.getSaldo());
 		}
@@ -43,7 +46,7 @@ public class ContaPoupancaBO {
 		
 		System.out.println("Depósito realizado com sucesso!\nSaldo atual: " + cp.getSaldo());
 		
-		BancoDeDados.insereConta(cp.getNumero(), cp);
+		BancoDeDados.adicionaConta(cp.getNumero(), cp);
 	}
 	
 	//transferência
@@ -62,7 +65,8 @@ public class ContaPoupancaBO {
 				contaDestino.setSaldo(saldoDestino);
 				System.out.println("Transferência realizada com sucesso!\nSaldo atual: R$" + cp.getSaldo());
 				
-				BancoDeDados.insereConta(cp.getNumero(), cp);
+				BancoDeDados.adicionaConta(cp.getNumero(), cp);
+				BancoDeDados.adicionaConta(contaDestino.getNumero(), contaDestino);
 			} else {
 				System.out.println("\nSaldo insuficiente!\nSaldo atual: R$" + cp.getSaldo());
 			}
@@ -79,7 +83,8 @@ public class ContaPoupancaBO {
 				System.out.println("Saldo da Conta Poupança: R$" + cp.getSaldo());
 				System.out.println("Saldo da Conta Corrente: R$" + contaDestino.getSaldo());
 				
-				BancoDeDados.insereConta(cp.getNumero(), cp);
+				BancoDeDados.adicionaConta(cp.getNumero(), cp);
+				BancoDeDados.adicionaConta(contaDestino.getNumero(), contaDestino);
 			} else {
 				System.out.println("\nSaldo insuficiente!\nSaldo atual: R$" + cp.getSaldo());
 			}
@@ -108,6 +113,22 @@ public class ContaPoupancaBO {
 		cp.setSaldo(saldo);
 		System.out.println("Rendimento Aplicado!\nSaldo atual: R$" + cp.getSaldo());
 		
-		BancoDeDados.insereConta(cp.getNumero(), cp);
+		BancoDeDados.adicionaConta(cp.getNumero(), cp);
+	}
+	
+	
+	//Verifica se o tipo da Conta é Comum, Super ou Premium
+	public TipoCliente verificaTipo(double valor) {
+		if(valor < 5000)
+			return TipoCliente.COMUM;
+		else if(valor >= 5000 && valor < 15000)
+			return TipoCliente.SUPER;
+		else
+			return TipoCliente.PREMIUM;
+	}
+	
+	//desativa conta poupança
+	public void desativaContaPoupanca(Conta conta) {
+		
 	}
 }

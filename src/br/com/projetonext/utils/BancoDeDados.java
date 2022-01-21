@@ -11,8 +11,8 @@ public class BancoDeDados {
 	private static Map<String, Conta> BANCO_DE_DADOS = new HashMap<String, Conta>();
 	
 	
-	//insere conto no banco de dados
-	public static void insereConta(String numeroConta, Conta conta) {
+	//insere ou atualiza a conta no banco de dados
+	public static void adicionaConta(String numeroConta, Conta conta) {
 		BancoDeDados.BANCO_DE_DADOS.put(numeroConta, conta);
 	}
 	
