@@ -71,7 +71,7 @@ public class ContaPoupancaBO {
 				System.out.println("\nSaldo insuficiente!\nSaldo atual: R$" + cp.getSaldo());
 			}
 		} else {
-			if(saldoAtual >= valor) {
+			if((saldoAtual + 5.6) >= valor) {
 				saldoAtual -= valor;
 				//aplica taxa de transferência
 				saldoAtual -= 5.60;
@@ -129,6 +129,7 @@ public class ContaPoupancaBO {
 	
 	//desativa conta poupança
 	public void desativaContaPoupanca(Conta conta) {
-		
+		conta.getContaPoupanca().setAtivado(false);
+		BancoDeDados.adicionaConta(conta.getNumero(), conta);
 	}
 }

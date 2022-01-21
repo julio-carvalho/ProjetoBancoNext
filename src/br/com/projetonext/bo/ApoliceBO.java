@@ -50,17 +50,25 @@ public class ApoliceBO {
 		System.out.println("\nRemoção do seguro realizado com sucesso.");
 	}
 	
+	public void acionaSeguro(Conta conta, double valor) {
+		if(validaCarencia(conta)) {
+			conta.setSaldo(conta.getSaldo() + valor);
+			System.out.println("Seguro acionado com sucesso");
+		} else {
+			System.out.println("O seguro ainda está na data de carência");
+		}
+	}
+	
 	//valida carência da apólice
 	public boolean validaCarencia(Conta conta) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		String dataAtual = sdf.format(new Date());
-		String dataCarencia = sdf.format(conta.getCartaoCredito().getApolice().getDataCarencia());
+		Date dataAtual = new Date();
+		Date dataCarencia = conta.getCartaoCredito().getApolice().getDataCarencia();
 		
-		if(dataAtual.equalsIgnoreCase(dataCarencia)){
+		if(dataAtual.before(dataCarencia))
 			return true;
-		}
-		
-		return false;
+		else
+			return false;
 	}
 	
 	//exibi dados da conta e da apólice
@@ -80,4 +88,22 @@ public class ApoliceBO {
 		System.out.println("+----------------------------------------------------------------------+");
 	}
 	
+	//retorna as regras dos seguros
+	public String toStringRegrasMorte() {
+		return "i. Indenização por despesas médico-hospitalares, ou por perda parcial ou total do funcionamento dos membros ou órgãos;\n"
+				+ "ii. Reembolso de custos em diagnóstico de doenças graves, como infarto, acidente vascular cerebral e câncer;\n"
+				+ "iii. Assistência funeral, para você e a sua família.\n"
+				+ "iv. O valor do seguro individual é de R$36,00 ao ano.";
+	}
+	public String toStringRegrasInvalidez() {
+		return "i. Invalidez parcial: ocorre quando há uma perda parcial das funções. Por exemplo, uma pessoa que sofre um acidente e perda a visão em um só dos olhos.\n"
+				+ "ii. Invalidez total: ocorre quando há uma perda total das funções. Intuitivamente, um bom exemplo seria o caso onde a pessoa sofre um acidente e perde a visão em ambos os olhos.\n"
+				+ "iii. O valor do seguro individual é de R$26,00 ao ano.";
+	}
+	public String toStringRegrasDesemprego() {
+		return "i. Necessário trabalhar com registro CLT, com o tempo mínimo de estabilidade de 12 meses.\n"
+				+ "ii. Válido apenas para desligamento involuntários e sem justa causa.\n"
+				+ "iii. Não é valido em caso de demissão em massa (10% ou mais de demissões simultâneas) ou falência/encerramento das atividades.\r\n"
+				+ "iv. O valor do seguro individual é de R$16,00 ao ano.";
+	}
 }
