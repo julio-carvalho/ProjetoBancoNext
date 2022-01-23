@@ -384,23 +384,59 @@ public class MainProject {
 			case 12:
 				System.out.println("\nRealizar compra com débito");
 				if (conta.getCartaoDebito().isAtivo()) {
-					System.out.println("Digite a senha do cartão: ");
-					String senha = scan.next();
+					if (!conta.getCartaoDebito().isBloqueio()) {
+						int contBloq = 0;
 
-					if (senha.equalsIgnoreCase(conta.getCartaoDebito().getSenha())) {
-						System.out.println("Digite o valor da compra: ");
-						valor = scan.nextDouble();
+						while (contBloq <= 3) {
+							System.out.println("Digite a senha do cartão: ");
+							String senha = scan.next();
+							
+							if (senha.equalsIgnoreCase(conta.getCartaoDebito().getSenha())) {
+								System.out.println("Digite o valor da compra: ");
+								valor = scan.nextDouble();
 
-						cartaoBO.comprarCartaoDebito(conta, valor);
+								cartaoBO.comprarCartaoDebito(conta, valor);
+								break;
+							} else {
+								System.out.println("\nSenha inválida");
+								contBloq++;
+							}
+
+							if (contBloq == 3) {
+								System.out.println("\nO seu cartão foi bloqueado por excerder o número de tentativa de senha.");
+								conta.getCartaoDebito().setBloqueio(true);
+								break;
+							}
+						}
 					} else {
-						System.out.println("\nSenha inválida");
-						continue;
+						System.out.println("\nO cartão de débito está bloqueado!");
 					}
 				} else {
 					System.out.println("\nO cartão de débito está desativado!");
 				}
 				break;
 			case 13:
+				System.out.println("\nDesbloqueio do Cartão de Crédito");
+				if (conta.getCartaoDebito().isAtivo()) {
+					if (conta.getCartaoDebito().isBloqueio()) {
+						System.out.println("Digite a nova senha do seu cartão: ");
+						String senha = scan.next();
+						
+						while (!senha.matches("[0-9]*") || senha.length() != 4) {
+							System.out.println("Senha inválida, a senha deve possuir 4 números. Digite novamente: ");
+							senha = scan.next();
+						}
+						
+						cartaoBO.desbloqueiaCartao(conta, senha, 1);
+						System.out.println("\nCartão de Débito desbloquado.");
+					} else {
+						System.out.println("\nO cartão de débito já está desbloqueado!");
+					}
+				} else {
+					System.out.println("\nO cartão de débito está desativado!");
+				}
+				break;
+			case 14:
 				System.out.println("\nAtivar Cartão de Crédito");
 				if (!conta.getCartaoCredito().isAtivo()) {
 					TipoCliente tp = conta.getCliente().getTipoCliente();
@@ -413,7 +449,7 @@ public class MainProject {
 					else
 						limite = 14000;
 
-					System.out.println("\nO limite do seu cartão é de: R$" + limite);
+					System.out.println("\nO limite do seu cartão é de: R$ " + limite);
 					System.out.println("Deseja prosseguir na ativação do cartão de crédito?\n1 - Sim\n2 - Não");
 					int opcProsseguir = scan.nextInt();
 
@@ -455,7 +491,7 @@ public class MainProject {
 					System.out.println("\nO seu cartão já está ativado!");
 				}
 				break;
-			case 14:
+			case 15:
 				System.out.println("\nDesativar cartão crédito");
 				if (conta.getCartaoCredito().isAtivo()) {
 					cartaoBO.desativaCartao(conta, 2);
@@ -463,26 +499,62 @@ public class MainProject {
 					System.out.println("\nO cartão de crédito já está desativado");
 				}
 				break;
-			case 15:
+			case 16:
 				System.out.println("\nRealizar compra com crédito");
 				if (conta.getCartaoCredito().isAtivo()) {
-					System.out.println("Digite a senha do cartão: ");
-					String senha = scan.next();
-
-					if (senha.equalsIgnoreCase(conta.getCartaoCredito().getSenha())) {
-						System.out.println("Digite o valor da compra: ");
-						valor = scan.nextDouble();
-
-						cartaoBO.comprarCartaoCredito(conta, valor);
+					if (!conta.getCartaoCredito().isBloqueio()) {
+						int contBloq = 0;
+						
+						while(contBloq <= 3) {
+							System.out.println("Digite a senha do cartão: ");
+							String senha = scan.next();
+		
+							if (senha.equalsIgnoreCase(conta.getCartaoCredito().getSenha())) {
+								System.out.println("Digite o valor da compra: ");
+								valor = scan.nextDouble();
+		
+								cartaoBO.comprarCartaoCredito(conta, valor);
+								break;
+							} else {
+								System.out.println("\nSenha inválida");
+								contBloq++;
+							}
+							
+							if (contBloq == 3) {
+								System.out.println("\nO seu cartão de crédito foi bloquado por exceder o número de tentativa de senha.");
+								conta.getCartaoCredito().setBloqueio(true);
+								break;
+							}
+						}
 					} else {
-						System.out.println("\nSenha inválida");
-						continue;
+						System.out.println("\nO cartão de crédito está bloquado!");
 					}
 				} else {
 					System.out.println("\nO cartão de crédito está desativado!");
 				}
 				break;
-			case 16:
+			case 17:
+				System.out.println("\nDesbloqueio do Cartão de Crédito.");
+				if (conta.getCartaoCredito().isAtivo()) {
+					if (conta.getCartaoCredito().isBloqueio()) {
+						System.out.println("Digite a nova senha do seu cartão: ");
+						String senha = scan.next();
+						
+						while (!senha.matches("[0-9]*") || senha.length() != 4) {
+							System.out.println("Senha inválida, a senha deve possuir 4 números. Digite novamente: ");
+							senha = scan.next();
+						}
+						
+						cartaoBO.desbloqueiaCartao(conta, senha, 2);
+						System.out.println("\nCartão de Crédito desbloquado.");
+					} else {
+						System.out.println("\nO cartão de crédito já está desbloqueado!");
+					}
+				} else {
+					System.out.println("\nO cartão de crédito está desativado!");
+				}
+			break;
+			case 18:
 				System.out.println("\nExibir Fatura");
 				if (conta.getCartaoCredito().isAtivo())
 					cartaoBO.exibirFatura(conta);
@@ -490,11 +562,11 @@ public class MainProject {
 					System.out.println("\nO cartão de crédito está desativado!");
 
 				break;
-			case 17:
+			case 19:
 				System.out.println("\nPagar fatura do cartão de crédito");
 
 				if (conta.getCartaoCredito().isAtivo()) {
-					System.out.println("A fatura atual é : R$" + conta.getCartaoCredito().getFatura());
+					System.out.println("A fatura atual é : R$ " + conta.getCartaoCredito().getFatura());
 					System.out.println("Dseja pagar a fatura usando o seu saldo atual?\n1 - Sim\n2 - Não");
 					int opcFatura = scan.nextInt();
 
@@ -508,7 +580,7 @@ public class MainProject {
 				}
 
 				break;
-			case 18:
+			case 20:
 				System.out.println("\nObter apólice do seguro de vida.");
 				// valida se o cartão de crédito está ativo
 				if (conta.getCartaoCredito().isAtivo()) {
@@ -523,8 +595,7 @@ public class MainProject {
 						// 3 - DESEMPREGO
 						if (opcApolice == 1) {
 							// confirmação da assinatura
-							System.out.println(
-									"\nConfirmar assinatura da apólice de seguro referente a morte?\n1 - Sim\n2 - Não");
+							System.out.println("\nConfirmar assinatura da apólice de seguro referente a morte?\n1 - Sim\n2 - Não");
 							opcAssinatura = scan.nextInt();
 
 							if (opcAssinatura == 1)
@@ -534,8 +605,7 @@ public class MainProject {
 
 						} else if (opcApolice == 2) {
 							// confirmação da assinatura
-							System.out.println(
-									"\nConfirmar assinatura da apólice de seguro referente a invalidez?\n1 - Sim\n2 - Não");
+							System.out.println("\nConfirmar assinatura da apólice de seguro referente a invalidez?\n1 - Sim\n2 - Não");
 							opcAssinatura = scan.nextInt();
 
 							if (opcAssinatura == 1)
@@ -545,8 +615,7 @@ public class MainProject {
 
 						} else if (opcApolice == 3) {
 							// confirmação da assinatura
-							System.out.println(
-									"\nConfirmar assinatura da apólice de seguro referente a desemprego?\n1 - Sim\n2 - Não");
+							System.out.println("\nConfirmar assinatura da apólice de seguro referente a desemprego?\n1 - Sim\n2 - Não");
 							opcAssinatura = scan.nextInt();
 
 							if (opcAssinatura == 1)
@@ -566,7 +635,7 @@ public class MainProject {
 				}
 
 				break;
-			case 19:
+			case 21:
 				System.out.println("\nRegras e detalhes do seguro.");
 				// valida se o cartão de crédito está ativo
 				if (conta.getCartaoCredito().isAtivo()) {
@@ -590,7 +659,7 @@ public class MainProject {
 					System.out.println("\nO cartão de crédito está desativado!");
 				}
 				break;
-			case 20:
+			case 22:
 				System.out.println("\nRemover apólice de seguro de vida.");
 				if (conta.getCartaoCredito().isAtivo()) {
 					if (conta.getCartaoCredito().getApolice().isAtivo()) {
@@ -612,7 +681,7 @@ public class MainProject {
 				}
 
 				break;
-			case 21:
+			case 23:
 				// deixa continuar como false e desloga da conta
 				System.out.println("Deslogando!");
 				continuar = false;
@@ -718,7 +787,7 @@ public class MainProject {
 						System.out.println("Conta Poupança desativada com sucesso!");
 
 					} else {
-						System.out.println("\nSua Conta Poupança possui o saldo de : R$" + contaPoup.getSaldo());
+						System.out.println("\nSua Conta Poupança possui o saldo de : R$ " + contaPoup.getSaldo());
 						System.out.println("Sua conta poupança precisar estar zerada para ser desabilitada.");
 						break;
 					}

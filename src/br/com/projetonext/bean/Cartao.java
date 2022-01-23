@@ -6,6 +6,7 @@ public class Cartao {
 	private String bandeira;
 	private String senha;
 	private boolean ativo;
+	private boolean bloqueio;
 	
 	public String getId() {
 		return id;
@@ -37,4 +38,12 @@ public class Cartao {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
+	public boolean isBloqueio() {
+		return bloqueio;
+	}
+	public void setBloqueio(boolean bloqueio) {
+		this.bloqueio = bloqueio;
+	}
+	
+	
 }

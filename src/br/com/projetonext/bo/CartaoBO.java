@@ -23,6 +23,7 @@ public class CartaoBO {
 		cartaoDebito.setNumero(UUID.randomUUID().toString());
 		cartaoDebito.setLimitePorTransacao(limite);
 		cartaoDebito.setSenha(senha);
+		cartaoDebito.setBloqueio(false);
 		
 		//defini tipo bandeira
 		if(bandeira == 1)
@@ -45,12 +46,12 @@ public class CartaoBO {
 				conta.setSaldo(saldoAtual);
 				
 				BancoDeDados.adicionaConta(conta.getNumero(), conta);
-				System.out.println("\nCompra realizada com sucesso!\nSaldo atual: R$" + conta.getSaldo());
+				System.out.println("\nCompra realizada com sucesso!\nSaldo atual: R$ " + conta.getSaldo());
 			} else {
-				System.out.println("\nSaldo insuficiente!\nSaldo atual: R$" + conta.getSaldo());
+				System.out.println("\nSaldo insuficiente!\nSaldo atual: R$ " + conta.getSaldo());
 			}
 		} else {
-			System.out.println("\nO valor da compra é maior que o limite de transação.\nLimite de transação: R$" + conta.getCartaoDebito().getLimitePorTransacao());
+			System.out.println("\nO valor da compra é maior que o limite de transação.\nLimite de transação: R$ " + conta.getCartaoDebito().getLimitePorTransacao());
 		}
 	}
 	
@@ -60,6 +61,7 @@ public class CartaoBO {
 		
 		conta.setCartaoCredito(cartaoCredito);
 		cartaoCredito.setAtivo(true);
+		cartaoCredito.setBloqueio(false);
 		cartaoCredito.setId(UUID.randomUUID().toString());
 		cartaoCredito.setNumero(UUID.randomUUID().toString());
 		cartaoCredito.setLimite(limite);
@@ -97,7 +99,7 @@ public class CartaoBO {
 							
 			BancoDeDados.adicionaConta(conta.getNumero(), conta);
 			
-			System.out.println("\nCompra realizada com sucesso!\nFatura atual: R$" + conta.getCartaoCredito().getFatura());
+			System.out.println("\nCompra realizada com sucesso!\nFatura atual: R$ " + conta.getCartaoCredito().getFatura());
 		} else {
 			System.out.println("Limite de compra atingido!");
 		}
@@ -135,10 +137,10 @@ public class CartaoBO {
 			String dataDaCompra = sdfComHora.format(compra.getData());
 			double valorDaCompra = compra.getValor();
 			
-			System.out.println(" * Compra realizada no dia " + dataDaCompra + " no valor de R$" + valorDaCompra);
+			System.out.println(" * Compra realizada no dia " + dataDaCompra + " no valor de R$ " + valorDaCompra);
 		}
 		System.out.println("+----------------------------------------------------------------------+");
-		System.out.println(" * Fatura Total: R$: " + conta.getCartaoCredito().getFatura());
+		System.out.println(" * Fatura Total: R$ " + conta.getCartaoCredito().getFatura());
 		System.out.println("+----------------------------------------------------------------------+\n");
 		
 	}
@@ -151,10 +153,10 @@ public class CartaoBO {
 			saldoAtual -= fatura;
 			conta.setSaldo(saldoAtual);
 			conta.getCartaoCredito().setFatura(0);
-			System.out.println("\nFatura paga com sucesso.\nSaldo atual: R$" + conta.getSaldo());
+			System.out.println("\nFatura paga com sucesso.\nSaldo atual: R$ " + conta.getSaldo());
 			BancoDeDados.adicionaConta(conta.getNumero(), conta);
 		} else {
-			System.out.println("\nSaldo insuficiente.\nSaldo atual: R$" + conta.getSaldo());
+			System.out.println("\nSaldo insuficiente.\nSaldo atual: R$ " + conta.getSaldo());
 		}
 	}
 	
@@ -170,7 +172,7 @@ public class CartaoBO {
 				conta.getCartaoCredito().setAtivo(false);
 				System.out.println("Cartão de Crédito desativado");
 			} else {
-				System.out.println("Você precisa pagar a fatura do cartão para poder cancela-lo.\nFatura atual: R$" + conta.getCartaoCredito().getFatura());
+				System.out.println("Você precisa pagar a fatura do cartão para poder cancela-lo.\nFatura atual: R$ " + conta.getCartaoCredito().getFatura());
 			}
 		}
 	}
@@ -198,5 +200,19 @@ public class CartaoBO {
 		//armazena a data ajustada e depois retorna a data
 		Date data = cal.getTime();
 		return data;
+	}
+
+	public void desbloqueiaCartao(Conta conta, String senha, int i) {
+		//1 - Cartão Debito
+		//2 - Cartão Crédito
+		if(i == 1) {
+			conta.getCartaoDebito().setSenha(senha);
+			conta.getCartaoDebito().setBloqueio(false);
+		}
+		if(i == 2) {
+			conta.getCartaoCredito().setSenha(senha);
+			conta.getCartaoCredito().setBloqueio(false);
+		}
+		
 	}
 }

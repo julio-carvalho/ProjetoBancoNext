@@ -89,10 +89,10 @@ public class ContaBO {
 		System.out.println("\n+----------------------------------------------------------------------+");
 		System.out.println("|                            CONTA CORRENTE                            |");
 		System.out.println("+----------------------------------------------------------------------+");
-		System.out.println(" * Nome: " + nome);
-		System.out.println(" * CPF: " + cpf);
-		System.out.println(" * Saldo: R$" + saldo);
-		System.out.println(" * Tipo: " + tp);
+		System.out.println(" * Nome:  " + nome);
+		System.out.println(" * CPF:   " + cpf);
+		System.out.println(" * Saldo: R$ " + saldo);
+		System.out.println(" * Tipo:  " + tp);
 		System.out.println("+----------------------------------------------------------------------+");
 	}
 	
@@ -101,7 +101,7 @@ public class ContaBO {
 		saldo += valor;
 		conta.setSaldo(saldo);
 		
-		System.out.println("Depósito realizado com sucesso!\nSaldo atual: R$" + conta.getSaldo());
+		System.out.println("Depósito realizado com sucesso!\nSaldo atual: R$ " + conta.getSaldo());
 		
 		//valida e atualiza o tipo do cliente
 		TipoCliente aux = verificaTipo(conta.getSaldo());
@@ -115,7 +115,7 @@ public class ContaBO {
 		if(saldo >= valor) {
 			saldo -= valor;
 			conta.setSaldo(saldo);
-			System.out.println("\nSaque realizado com sucesso!\nSaldo atual: R$" + conta.getSaldo());
+			System.out.println("\nSaque realizado com sucesso!\nSaldo atual: R$ " + conta.getSaldo());
 			
 			//valida e atualiza o tipo do cliente
 			TipoCliente aux = verificaTipo(conta.getSaldo());
@@ -123,7 +123,7 @@ public class ContaBO {
 			
 			BancoDeDados.adicionaConta(conta.getNumero(), conta);
 		} else {
-			System.out.println("\nSaldo insuficiente!\nSaldo atual: R$" + conta.getSaldo());
+			System.out.println("\nSaldo insuficiente!\nSaldo atual: R$ " + conta.getSaldo());
 		}
 	}
 	
@@ -137,7 +137,7 @@ public class ContaBO {
 			
 			saldoDestino += valor;
 			contaDestino.setSaldo(saldoDestino);
-			System.out.println("\nTransferência realizada com sucesso!\nSaldo atual: R$" + conta.getSaldo());
+			System.out.println("\nTransferência realizada com sucesso!\nSaldo atual: R$ " + conta.getSaldo());
 			
 			//valida e atualiza o tipo do cliente
 			TipoCliente aux = verificaTipo(conta.getSaldo());
@@ -146,14 +146,14 @@ public class ContaBO {
 			BancoDeDados.adicionaConta(conta.getNumero(), conta);
 			BancoDeDados.adicionaConta(contaDestino.getNumero(), contaDestino);
 		} else {
-			System.out.println("\nSaldo insuficiente!\nSaldo atual: R$" + conta.getSaldo());
+			System.out.println("\nSaldo insuficiente!\nSaldo atual: R$ " + conta.getSaldo());
 		}
 	}
 		
 	public void descontarTaxa(Conta conta) {
 		double saldo = conta.getSaldo() * (1-(conta.getContaCorrente().getTaxaManutencao()/100));
 		conta.setSaldo(saldo);
-		System.out.println("Taxa aplicada!\nSaldo atual: R$" + conta.getSaldo());
+		System.out.println("Taxa aplicada!\nSaldo atual: R$ " + conta.getSaldo());
 		
 		//valida e atualiza o tipo do cliente
 		TipoCliente aux = verificaTipo(conta.getSaldo());
