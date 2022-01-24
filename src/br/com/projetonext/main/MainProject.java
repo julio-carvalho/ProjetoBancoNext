@@ -134,7 +134,8 @@ public class MainProject {
 				}
 
 				// cadastra o cliente na conta
-				contaBO.cadastrarConta(cliente, senha);
+				Conta contaCC = contaBO.cadastrarConta(cliente, senha);
+				System.out.println("\nConta cadastrada com sucesso!\nO número da sua conta é: " + contaCC.getNumero());
 				break;
 			case 2:
 				System.out.println("\n+--------------------------------+");
@@ -176,7 +177,7 @@ public class MainProject {
 		Scanner scanString = new Scanner(System.in);
 
 		ContaBO contaBO = new ContaBO();
-		ContaPoupancaBO cpBO = new ContaPoupancaBO();
+		//ContaPoupancaBO cpBO = new ContaPoupancaBO();
 		PixBO pixBO = new PixBO();
 		CartaoBO cartaoBO = new CartaoBO();
 		ApoliceBO apoliceBO = new ApoliceBO();
@@ -369,17 +370,18 @@ public class MainProject {
 						bandeira = scan.nextInt();
 					}
 					cartaoBO.cadastraCartaoDebito(conta, bandeira, limite, senha);
+					System.out.println("\nCartão criado com sucesso!\nO número do cartão é: " + conta.getCartaoDebito().getNumero());
 				} else {
 					System.out.println("\nO seu cartão já está ativado!");
 				}
 				break;
 			case 11:
 				System.out.println("\nDesativar Cartão Débito");
-				if (conta.getCartaoDebito().isAtivo()) {
-					cartaoBO.desativaCartao(conta, 1);
-				} else {
-					System.out.println("\nO cartão de débito já está desativado");
-				}
+				if (conta.getCartaoDebito().isAtivo())
+					System.out.println(cartaoBO.desativaCartao(conta, 1));
+				else
+					System.out.println("\nO cartão de débito já está desativado.");
+				
 				break;
 			case 12:
 				System.out.println("\nRealizar compra com débito");
@@ -395,7 +397,7 @@ public class MainProject {
 								System.out.println("Digite o valor da compra: ");
 								valor = scan.nextDouble();
 
-								cartaoBO.comprarCartaoDebito(conta, valor);
+								System.out.println(cartaoBO.comprarCartaoDebito(conta, valor));
 								break;
 							} else {
 								System.out.println("\nSenha inválida");
@@ -483,8 +485,9 @@ public class MainProject {
 						}
 
 						cartaoBO.cadastraCartaoCredito(conta, bandeira, limite, senha, dia);
+						System.out.println("\nCartão criado com sucesso!\nO número do cartão é: " + conta.getCartaoCredito().getNumero());
 					} else {
-						System.out.println("\nVoltando para o menu");
+						System.out.println("\nVoltando para o menu.");
 						continue;
 					}
 				} else {
@@ -493,11 +496,11 @@ public class MainProject {
 				break;
 			case 15:
 				System.out.println("\nDesativar cartão crédito");
-				if (conta.getCartaoCredito().isAtivo()) {
-					cartaoBO.desativaCartao(conta, 2);
-				} else {
-					System.out.println("\nO cartão de crédito já está desativado");
-				}
+				if (conta.getCartaoCredito().isAtivo())
+					System.out.println(cartaoBO.desativaCartao(conta, 2));
+				else
+					System.out.println("\nO cartão de crédito já está desativado.");
+				
 				break;
 			case 16:
 				System.out.println("\nRealizar compra com crédito");
@@ -513,7 +516,7 @@ public class MainProject {
 								System.out.println("Digite o valor da compra: ");
 								valor = scan.nextDouble();
 		
-								cartaoBO.comprarCartaoCredito(conta, valor);
+								System.out.println(cartaoBO.comprarCartaoCredito(conta, valor));
 								break;
 							} else {
 								System.out.println("\nSenha inválida");
@@ -567,11 +570,11 @@ public class MainProject {
 
 				if (conta.getCartaoCredito().isAtivo()) {
 					System.out.println("A fatura atual é : R$ " + conta.getCartaoCredito().getFatura());
-					System.out.println("Dseja pagar a fatura usando o seu saldo atual?\n1 - Sim\n2 - Não");
+					System.out.println("Deseja pagar a fatura usando o seu saldo atual?\n1 - Sim\n2 - Não");
 					int opcFatura = scan.nextInt();
 
 					if (opcFatura == 1)
-						cartaoBO.pagarFatura(conta);
+						System.out.println(cartaoBO.pagarFatura(conta));
 					else
 						continue;
 
@@ -697,7 +700,7 @@ public class MainProject {
 		Scanner scan = new Scanner(System.in);
 		Scanner scanString = new Scanner(System.in);
 		ContaPoupancaBO cpb = new ContaPoupancaBO();
-		PixBO pixBO = new PixBO();
+		//PixBO pixBO = new PixBO();
 
 		int opcMenu = 0;
 		double valor = 0;

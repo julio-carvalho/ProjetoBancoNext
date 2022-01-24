@@ -33,11 +33,10 @@ public class CartaoBO {
 		else
 			cartaoDebito.setBandeira("ELO");
 		
-		System.out.println("\nCartão criado com sucesso!\nO número do cartão é: " + cartaoDebito.getNumero());
 	}
 		
 	//compra com o cartão de débito
-	public void comprarCartaoDebito(Conta conta, double valor) {
+	public String comprarCartaoDebito(Conta conta, double valor) {
 		double saldoAtual = conta.getSaldo();
 	
 		if(conta.getCartaoDebito().getLimitePorTransacao() >= valor) {
@@ -46,12 +45,12 @@ public class CartaoBO {
 				conta.setSaldo(saldoAtual);
 				
 				BancoDeDados.adicionaConta(conta.getNumero(), conta);
-				System.out.println("\nCompra realizada com sucesso!\nSaldo atual: R$ " + conta.getSaldo());
+				return "\nCompra realizada com sucesso!\nSaldo atual: R$ " + conta.getSaldo();
 			} else {
-				System.out.println("\nSaldo insuficiente!\nSaldo atual: R$ " + conta.getSaldo());
+				return "\nSaldo insuficiente!\nSaldo atual: R$ " + conta.getSaldo();
 			}
 		} else {
-			System.out.println("\nO valor da compra é maior que o limite de transação.\nLimite de transação: R$ " + conta.getCartaoDebito().getLimitePorTransacao());
+			return "\nO valor da compra é maior que o limite de transação.\nLimite de transação: R$ " + conta.getCartaoDebito().getLimitePorTransacao();
 		}
 	}
 	
@@ -79,11 +78,11 @@ public class CartaoBO {
 		else
 			cartaoCredito.setBandeira("ELO");
 		
-		System.out.println("\nCartão criado com sucesso!\nO número do cartão é: " + cartaoCredito.getNumero());
+		BancoDeDados.adicionaConta(conta.getNumero(), conta);
 	}
 		
 	//realiza compra com cartão de crédito
-	public void comprarCartaoCredito(Conta conta, double valor) {
+	public String comprarCartaoCredito(Conta conta, double valor) {
 		double limite = conta.getCartaoCredito().getLimite();
 		if(limite >= valor) {
 
@@ -99,9 +98,9 @@ public class CartaoBO {
 							
 			BancoDeDados.adicionaConta(conta.getNumero(), conta);
 			
-			System.out.println("\nCompra realizada com sucesso!\nFatura atual: R$ " + conta.getCartaoCredito().getFatura());
+			return "\nCompra realizada com sucesso!\nFatura atual: R$ " + conta.getCartaoCredito().getFatura();
 		} else {
-			System.out.println("Limite de compra atingido!");
+			return "\nLimite de compra atingido!";
 		}
 	}
 	
@@ -145,7 +144,7 @@ public class CartaoBO {
 		
 	}
 	
-	public void pagarFatura(Conta conta) {
+	public String pagarFatura(Conta conta) {
 		double saldoAtual = conta.getSaldo();
 		double fatura = conta.getCartaoCredito().getFatura();
 		
@@ -153,26 +152,29 @@ public class CartaoBO {
 			saldoAtual -= fatura;
 			conta.setSaldo(saldoAtual);
 			conta.getCartaoCredito().setFatura(0);
-			System.out.println("\nFatura paga com sucesso.\nSaldo atual: R$ " + conta.getSaldo());
+			
 			BancoDeDados.adicionaConta(conta.getNumero(), conta);
+			return "\nFatura paga com sucesso.\nSaldo atual: R$ " + conta.getSaldo();
+			
+			
 		} else {
-			System.out.println("\nSaldo insuficiente.\nSaldo atual: R$ " + conta.getSaldo());
+			return "\nSaldo insuficiente.\nSaldo atual: R$ " + conta.getSaldo();
 		}
 	}
 	
 	//desativa cartao
-	public void desativaCartao(Conta conta, int opc) {
+	public String desativaCartao(Conta conta, int opc) {
 		//1 - Cartão de débito
 		//2 - Cartão de crédito
 		if(opc == 1) {
 			conta.getCartaoDebito().setAtivo(false);
-			System.out.println("Cartão de Débito desativado");
+			return "\nCartão de Débito desativado";
 		} else {
 			if(conta.getCartaoCredito().getFatura() == 0) {
 				conta.getCartaoCredito().setAtivo(false);
-				System.out.println("Cartão de Crédito desativado");
+				return "\nCartão de Crédito desativado";
 			} else {
-				System.out.println("Você precisa pagar a fatura do cartão para poder cancela-lo.\nFatura atual: R$ " + conta.getCartaoCredito().getFatura());
+				return "Você precisa pagar a fatura do cartão para poder cancela-lo.\nFatura atual: R$ " + conta.getCartaoCredito().getFatura();
 			}
 		}
 	}

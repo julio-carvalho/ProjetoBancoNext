@@ -42,11 +42,10 @@ public class ContaBO {
 		cc.getContaCorrente().setAtivado(true);
 		
 		
-		cc.setData(this.getAdiciona1Mes());
+		cc.setData(this.adiciona1Mes());
 		
 		cc.getContaCorrente().setTaxaManutencao(0.45);
 		BancoDeDados.adicionaConta(cc.getNumero(), cc);
-		System.out.println("\nConta cadastrada com sucesso!\nO número da sua conta é: " + cc.getNumero());
 		
 		return cc;
 	}
@@ -173,7 +172,7 @@ public class ContaBO {
 			return TipoCliente.PREMIUM;
 	}
 	
-	public Date getAdiciona1Mes() {
+	public Date adiciona1Mes() {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MONTH, 1);
 		Date data  = cal.getTime();
