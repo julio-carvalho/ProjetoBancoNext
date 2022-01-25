@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class Apolice {
 	private String id;
-	private double valorApolice;
 	private String descricaoCondicoes;
 	private Date dataAssinatura;
 	private Date dataCarencia;
@@ -18,12 +17,6 @@ public class Apolice {
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public double getValorApolice() {
-		return valorApolice;
-	}
-	public void setValorApolice(double valorApolice) {
-		this.valorApolice = valorApolice;
 	}
 	public String getDescricaoCondicoes() {
 		return descricaoCondicoes;

@@ -32,7 +32,7 @@ public class MainProject {
 		System.exit(0);
 	}
 
-	public static void menuPrincipal() {
+	private static void menuPrincipal() {
 		Scanner scan = new Scanner(System.in);
 		Scanner scanInt = new Scanner(System.in);
 		int opc = 0, numero;
@@ -152,8 +152,7 @@ public class MainProject {
 
 				ver = contaBOlogin.login(auxCpf, auxSenha);
 
-				// se ver for igual a true, entra no "menuLogado()", se for false informa que os
-				// dados estão inválidos
+				// se ver for igual a true, entra no "menuLogado()", se for false informa que os dados estão inválidos
 				if (ver)
 					menuLogado(auxCpf);
 				else
@@ -172,7 +171,7 @@ public class MainProject {
 		}
 	}
 
-	public static void menuLogado(String cpf) {
+	private static void menuLogado(String cpf) {
 		Scanner scan = new Scanner(System.in);
 		Scanner scanString = new Scanner(System.in);
 
@@ -183,7 +182,7 @@ public class MainProject {
 		ApoliceBO apoliceBO = new ApoliceBO();
 
 		// armazena a conta logada
-		Conta conta = BancoDeDados.buscaContaPorCPF(cpf);
+		Conta conta = BancoDeDados.retornaContaPorCPF(cpf);
 
 		int opcMenu = 0;
 		double valor = 0;
@@ -229,7 +228,7 @@ public class MainProject {
 				System.out.println("Digite o número da conta destino: ");
 				String numeroConta = scan.next();
 
-				Conta contaDestino = BancoDeDados.buscaContaPorNumero(numeroConta);
+				Conta contaDestino = BancoDeDados.retornaContaPorNumero(numeroConta);
 
 				if (contaDestino != null) {
 					System.out.println("Digite o valor da transferência: ");
@@ -625,7 +624,7 @@ public class MainProject {
 								apoliceBO.assinatura(conta, 16, "Desemprego", apoliceBO.toStringRegrasDesemprego());
 							else
 								continue;
-
+							
 						} else {
 							System.out.println("\nSaindo");
 							continue;
@@ -696,7 +695,7 @@ public class MainProject {
 		}
 	}
 
-	public static void menuContaPoupanca(ContaPoupanca contaPoup, Conta conta) {
+	private static void menuContaPoupanca(ContaPoupanca contaPoup, Conta conta) {
 		Scanner scan = new Scanner(System.in);
 		Scanner scanString = new Scanner(System.in);
 		ContaPoupancaBO cpb = new ContaPoupancaBO();
@@ -756,7 +755,7 @@ public class MainProject {
 				System.out.println("Digite o número da conta destino: ");
 				String numeroConta = scan.next();
 
-				Conta contaDestino = BancoDeDados.buscaContaPorNumero(numeroConta);
+				Conta contaDestino = BancoDeDados.retornaContaPorNumero(numeroConta);
 
 				// valida se o numero da conta digita pelo usuario existe no sistema, se existir
 				// continua com a transação

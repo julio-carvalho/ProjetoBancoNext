@@ -15,34 +15,15 @@ public class ApoliceBO {
 		
 		conta.getCartaoCredito().getApolice().setAtivo(true);
 		conta.getCartaoCredito().getApolice().setId(UUID.randomUUID().toString());
-		conta.getCartaoCredito().getApolice().setValorApolice(valor);
 		conta.getCartaoCredito().getApolice().setDataAssinatura(new Date());
 		conta.getCartaoCredito().getApolice().setDataAnual(this.adiciona1ano());
 		conta.getCartaoCredito().getApolice().setDataCarencia(this.adiciona15dias());
-		conta.getCartaoCredito().getApolice().setSeguro(new Seguro(nome, regras));
+		conta.getCartaoCredito().getApolice().setSeguro(new Seguro(nome, regras, valor));
 		conta.getCartaoCredito().setFatura(conta.getCartaoCredito().getFatura() + valor);
 		
 		System.out.println("\nAssinatura feita com sucesso.");
 	}
-	
-	//adiciona 1 ano na data atual
-	public Date adiciona1ano() {	
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.YEAR, 1);
-		Date dataAno = cal.getTime();
 		
-		return dataAno;
-	}
-	
-	//adiciona 15 dias na data da carência
-	private Date adiciona15dias() {
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DAY_OF_MONTH, 15);
-		Date data15dias = cal.getTime();
-		
-		return data15dias;
-	}
-	
 	//remove o seguro e a apólice
 	public void removeSeguro(Conta conta) {
 		conta.getCartaoCredito().getApolice().setAtivo(false);
@@ -69,6 +50,7 @@ public class ApoliceBO {
 			return true;
 		else
 			return false;
+	
 	}
 	
 	//exibi dados da conta e da apólice
@@ -86,6 +68,24 @@ public class ApoliceBO {
 		System.out.println(" * Data da assinatura: " + dataAssinatura);
 		System.out.println(" * Data da carência: " + dataCarencia);
 		System.out.println("+----------------------------------------------------------------------+");
+	}
+	
+	//adiciona 1 ano na data atual
+	private Date adiciona1ano() {	
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, 1);
+		Date dataAno = cal.getTime();
+		
+		return dataAno;
+	}
+	
+	//adiciona 15 dias na data da carência
+	private Date adiciona15dias() {
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_MONTH, 15);
+		Date data15dias = cal.getTime();
+		
+		return data15dias;
 	}
 	
 	//retorna as regras dos seguros

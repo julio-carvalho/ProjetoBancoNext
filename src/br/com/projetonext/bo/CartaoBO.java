@@ -179,7 +179,7 @@ public class CartaoBO {
 		}
 	}
 		
-	public Date ajustaData(int diaDoMes) {
+	private Date ajustaData(int diaDoMes) {
 		//verifica qual o dia o usuário escolhe
 		int dia = 0;
 		if(diaDoMes == 1)

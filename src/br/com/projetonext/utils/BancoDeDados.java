@@ -16,9 +16,8 @@ public class BancoDeDados {
 		BancoDeDados.BANCO_DE_DADOS.put(numeroConta, conta);
 	}
 	
-	
-	//busca a conta pelo numero
-	public static Conta buscaContaPorNumero(String numeroConta) {
+	//busca a conta pelo numero e retorna
+	public static Conta retornaContaPorNumero(String numeroConta) {
 		Conta conta = BancoDeDados.BANCO_DE_DADOS.get(numeroConta);
 		
 		if(conta == null) {
@@ -27,8 +26,8 @@ public class BancoDeDados {
 		return conta;
 	}
 		
-	//busca a conta pelo cpf
-	public static Conta buscaContaPorCPF(String cpf){
+	//busca a conta pelo cpf e retorna
+	public static Conta retornaContaPorCPF(String cpf){
 		Conta conta = null;
 		Conta c = null;
 		for(Map.Entry<String, Conta> mapaConta: BancoDeDados.BANCO_DE_DADOS.entrySet()) {
@@ -40,7 +39,7 @@ public class BancoDeDados {
 		return c;
 	}
 	
-	//busca a conta pelo cpf retornando true ou false
+	//busca a conta pelo cpf e retorna true ou false
 	public static boolean validaContaCPF(String cpf) {
 		boolean var = false;
 		

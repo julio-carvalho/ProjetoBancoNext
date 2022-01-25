@@ -115,21 +115,20 @@ public class ContaPoupancaBO {
 		
 		BancoDeDados.adicionaConta(cp.getNumero(), cp);
 	}
-	
+		
+	//desativa conta poupança
+	public void desativaContaPoupanca(Conta conta) {
+		conta.getContaPoupanca().setAtivado(false);
+		BancoDeDados.adicionaConta(conta.getNumero(), conta);
+	}
 	
 	//Verifica se o tipo da Conta é Comum, Super ou Premium
-	public TipoCliente verificaTipo(double valor) {
+	private TipoCliente verificaTipo(double valor) {
 		if(valor < 5000)
 			return TipoCliente.COMUM;
 		else if(valor >= 5000 && valor < 15000)
 			return TipoCliente.SUPER;
 		else
 			return TipoCliente.PREMIUM;
-	}
-	
-	//desativa conta poupança
-	public void desativaContaPoupanca(Conta conta) {
-		conta.getContaPoupanca().setAtivado(false);
-		BancoDeDados.adicionaConta(conta.getNumero(), conta);
 	}
 }

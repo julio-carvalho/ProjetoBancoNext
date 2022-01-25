@@ -17,15 +17,15 @@ public class PixBO {
 		//2 - EMAIL
 		//3 - TELEFONE
 		//4 - ALEATORIO
-		if(tipoChave == 1) {
+		if(tipoChave == 1)
 			tcp = TipoChavePix.CPF;
-		} else if(tipoChave == 2) {
+		else if(tipoChave == 2)
 			tcp = TipoChavePix.EMAIL;
-		} else if(tipoChave == 3) {
+		else if(tipoChave == 3)
 			tcp = TipoChavePix.TELEFONE;
-		} else if(tipoChave == 4) {
+		else if(tipoChave == 4)
 			tcp = TipoChavePix.ALEATORIO;
-		}
+		
 		pix.setTipoChavePix(tcp);
 		
 		conta.setPix(pix);

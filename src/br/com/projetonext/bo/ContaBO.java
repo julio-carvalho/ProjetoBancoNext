@@ -68,7 +68,7 @@ public class ContaBO {
 		
 	public boolean login(String cpf, String senha) {
 		boolean var = false;
-		Conta conta = BancoDeDados.buscaContaPorCPF(cpf);
+		Conta conta = BancoDeDados.retornaContaPorCPF(cpf);
 		if(conta != null) {
 			if(conta.getSenha().equalsIgnoreCase(senha)) {
 				var = true;
@@ -163,7 +163,7 @@ public class ContaBO {
 	
 	
 	//Verifica se o tipo da Conta é Comum, Super ou Premium
-	public TipoCliente verificaTipo(double valor) {
+	private TipoCliente verificaTipo(double valor) {
 		if(valor < 5000)
 			return TipoCliente.COMUM;
 		else if(valor >= 5000 && valor < 15000)
@@ -172,7 +172,8 @@ public class ContaBO {
 			return TipoCliente.PREMIUM;
 	}
 	
-	public Date adiciona1Mes() {
+	//adiciona 1 mes em cima da data atual
+	private Date adiciona1Mes() {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MONTH, 1);
 		Date data  = cal.getTime();
